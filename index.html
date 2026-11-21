@@ -41,6 +41,7 @@ button { cursor: pointer; }
 .lbl { pointer-events: none; white-space: nowrap; text-align: center; transform: translate(-50%, -50%); width: max-content; }
 .leaflet-div-icon.lbl-wrap { background: none; border: 0; }
 .lbl-realm { font-family: var(--font-display); color: rgba(74, 46, 24, .78); letter-spacing: .14em; text-transform: uppercase; text-shadow: 0 0 3px rgba(240, 228, 200, .9), 0 0 6px rgba(240, 228, 200, .6); line-height: 1.05; max-width: 14em; white-space: normal; }
+.lbl-trib { font-family: var(--font-display); font-size: 17px; letter-spacing: .08em; font-weight: 400; text-shadow: 0 0 3px var(--vellum), 0 0 3px var(--vellum), 0 0 8px var(--vellum); white-space: nowrap; }
 .lbl-sea { font-family: var(--font-label); font-style: italic; color: var(--sea-ink); letter-spacing: .16em; font-size: 14px; text-shadow: 0 0 4px rgba(167, 189, 182, .9); }
 .lbl-mtn { font-family: var(--font-label); font-style: italic; color: #6b4b2e; font-size: 12.5px; letter-spacing: .08em; text-shadow: 0 0 3px rgba(240, 228, 200, .95); }
 .lbl-reg { font-family: var(--font-label); font-style: italic; color: #7a6248; font-size: 12px; text-shadow: 0 0 3px rgba(240, 228, 200, .95); }
@@ -232,7 +233,7 @@ const clean = (s, n) => String(s ?? "").slice(0, n);
 const typeOf = (t) => TYPES[t] ? t : "autre";
 
 // ---------------------------------------------------------------- state
-const prefs = Object.assign({ realms: true, borders: true, relief: true, rivers: true, cities: true, names: true, places: true, pinNames: true, hiddenTypes: [] }, lsGet(LS_PREFS, {}));
+const prefs = Object.assign({ tribunals: true, realms: true, borders: true, relief: true, rivers: true, cities: true, names: true, places: true, pinNames: true, hiddenTypes: [] }, lsGet(LS_PREFS, {}));
 const S = {
   mode: "loading",       // "shared" | "local" | "readonly"
   isGM: false,
@@ -258,9 +259,9 @@ if (window.innerWidth < 720) map.setView([46, 12], 3.5); else map.setView([46.5,
 
 const pane = (name, z, pe = false) => { const p = map.createPane(name); p.style.zIndex = z; if (!pe) p.style.pointerEvents = "none"; return p; };
 pane("seabg", 350); pane("coastfx", 360); pane("land", 380); pane("realms", 390); pane("relief", 400); pane("water", 410); pane("borders", 420);
-pane("labels", 560); pane("cities", 590, true);
+pane("tribunals", 415); pane("labels", 560); pane("cities", 590, true);
 const R = (p) => L.canvas({ pane: p, padding: 0.4 });
-const rCoast = R("coastfx"), rLand = R("land"), rRealms = R("realms"), rWater = R("water"), rBorders = R("borders");
+const rTrib = R("tribunals"), rCoast = R("coastfx"), rLand = R("land"), rRealms = R("realms"), rWater = R("water"), rBorders = R("borders");
 
 // paper grain (generated once)
 (function paper() {
@@ -286,8 +287,8 @@ const ReliefLayer = L.TileLayer.extend({
 });
 
 async function loadBase() {
-  const [land, realms, borders, lakes, rivers, labels, cities, reliefLo] = await Promise.all(
-    ["land", "realms", "borders", "lakes", "rivers", "labels", "cities", "relief_lo"].map((n) => getJSON(`data/${n}.json`)));
+  const [land, realms, borders, lakes, rivers, labels, cities, reliefLo, tribunals] = await Promise.all(
+    ["land", "realms", "borders", "lakes", "rivers", "labels", "cities", "relief_lo", "tribunals"].map((n) => getJSON(`data/${n}.json`)));
 
   // opaque sea inside the map pane, so the relief blend has a backdrop
   L.rectangle([[-80, -179], [85, 179]], { renderer: R("seabg"), interactive: false, stroke: false, fillColor: "#a7bdb6", fillOpacity: 1 }).addTo(map);
@@ -303,6 +304,16 @@ async function loadBase() {
   layers.lakes = L.geoJSON(lakes, { renderer: rWater, interactive: false, style: { color: "#4a3824", weight: .7, opacity: .7, fillColor: "#a7bdb6", fillOpacity: 1 } });
   layers.rivers = L.geoJSON(rivers, { renderer: rWater, interactive: false, style: riverStyle });
   layers.water = L.layerGroup([layers.rivers, layers.lakes]);
+  const TRIB_NAME = { "Loch Leglean": "Tribunal du Loch Leglean", "Rhin": "Tribunal du Rhin", "Levant": "Tribunal du Levant", "Grandes Alpes": "Tribunal des Grandes Alpes" };
+  const tribShape = L.geoJSON(tribunals, { renderer: rTrib, interactive: false, style: (f) => ({ color: f.properties.col, weight: 2.4, opacity: .85, fillColor: f.properties.col, fillOpacity: .14, lineJoin: "round" }) });
+  const tribLabels = tribunals.features.map((f) => {
+    const p = f.properties, text = TRIB_NAME[p.n] || ("Tribunal de " + p.n);
+    const icon = L.divIcon({ className: "lbl-wrap", html: '<div class="lbl lbl-trib"></div>', iconSize: [0, 0] });
+    const m = L.marker([p.ly, p.lx], { icon, pane: "labels", interactive: false, keyboard: false });
+    m.on("add", () => { const d = m.getElement()?.firstChild; if (d) { d.textContent = text; d.style.color = p.col; } });
+    return m;
+  });
+  layers.tribunals = L.layerGroup([tribShape, ...tribLabels]);
 
   reliefTiles = reliefLo;
   layers.relief = new ReliefLayer("", { pane: "relief", minZoom: 3, maxZoom: 10, maxNativeZoom: 6, minNativeZoom: 3, bounds: [[24, -26], [72, 56]], keepBuffer: 4 });
@@ -370,7 +381,7 @@ function updateZoomStyles() {
   const z = map.getZoom();
   if (layers.rivers && map.hasLayer(layers.rivers)) layers.rivers.setStyle(riverStyle);
   if (layers.labelItems) for (const it of layers.labelItems) {
-    const on = z >= it.minZ && !(it.kind === "reg" && z > 8);
+    const on = z >= it.minZ && !(it.kind === "reg" && z > 8) && !(it.kind === "realm" && prefs.tribunals && z < 5.5);
     const e = it.m.getElement(); if (!e) continue;
     e.style.display = on ? "" : "none";
     if (on) styleLabel(e.firstChild, it.kind, it.area);
@@ -384,7 +395,7 @@ function updateZoomStyles() {
 function applyLayerPrefs() {
   const set = (lyr, on) => { if (!lyr) return; if (on && !map.hasLayer(lyr)) lyr.addTo(map); if (!on && map.hasLayer(lyr)) map.removeLayer(lyr); };
   set(layers.realms, prefs.realms); set(layers.borders, prefs.borders); set(layers.relief, prefs.relief);
-  set(layers.water, prefs.rivers); set(layers.cities, prefs.cities); set(layers.labels, prefs.names);
+  set(layers.water, prefs.rivers); set(layers.tribunals, prefs.tribunals); set(layers.cities, prefs.cities); set(layers.labels, prefs.names);
   renderPlaces();
   updateZoomStyles();
   lsSet(LS_PREFS, prefs);
@@ -683,9 +694,9 @@ $("bLayers").onclick = () => {
     return b;
   }));
   openPanel("Couches", [
-    el("div", { class: "layers-list" }, row("realms", "Royaumes (couleurs)"), row("borders", "Frontières vers 1220"), row("relief", "Relief"), row("rivers", "Fleuves et lacs"), row("cities", "Villes de l'époque"), row("names", "Noms des royaumes, mers et montagnes"), row("places", "Mes lieux"), row("pinNames", "Noms sous les épingles")),
+    el("div", { class: "layers-list" }, row("tribunals", "Tribunaux de l'Ordre d'Hermès"), row("realms", "Royaumes (couleurs)"), row("borders", "Frontières vers 1220"), row("relief", "Relief"), row("rivers", "Fleuves et lacs"), row("cities", "Villes de l'époque"), row("names", "Noms des royaumes, mers et montagnes"), row("places", "Mes lieux"), row("pinNames", "Noms sous les épingles")),
     el("h3", { class: "sec-title", text: "Types de lieux" }), tf,
-    el("p", { class: "hint", text: "Les frontières viennent d'un jeu de données vers 1200, corrigé à la main pour 1220 (Normandie et Anjou à la France, sultanat de Roum, Trébizonde, États latins). Elles restent approximatives." })
+    el("p", { class: "hint", text: "Les frontières viennent d'un jeu de données vers 1200, corrigé à la main pour 1220 (Normandie et Anjou à la France, sultanat de Roum, Trébizonde, États latins). Elles restent approximatives. Les Tribunaux suivent la carte de Mythic Europe 1220 du wiki Ars Magica, calée sur les côtes ; leurs limites sont elles aussi approximatives." })
   ]);
 };
 
