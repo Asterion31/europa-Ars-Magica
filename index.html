@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Europa MCCXX</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=IM+Fell+English:ital@0;1&family=IM+Fell+English+SC&display=swap" rel="stylesheet">
+<style> .leaflet-pane, .leaflet-tile, .leaflet-marker-icon, .leaflet-marker-shadow, .leaflet-tile-container, .leaflet-pane > svg, .leaflet-pane > canvas, .leaflet-zoom-box, .leaflet-image-layer, .leaflet-layer { position: absolute; left: 0; top: 0; } .leaflet-container { overflow: hidden; } .leaflet-tile, .leaflet-marker-icon, .leaflet-marker-shadow { -webkit-user-select: none; -moz-user-select: none; user-select: none; -webkit-user-drag: none; } .leaflet-tile::selection { background: transparent; } .leaflet-safari .leaflet-tile { image-rendering: -webkit-optimize-contrast; } .leaflet-safari .leaflet-tile-container { width: 1600px; height: 1600px; -webkit-transform-origin: 0 0; } .leaflet-marker-icon, .leaflet-marker-shadow { display: block; } .leaflet-container .leaflet-overlay-pane svg { max-width: none !important; max-height: none !important; } .leaflet-container .leaflet-marker-pane img, .leaflet-container .leaflet-shadow-pane img, .leaflet-container .leaflet-tile-pane img, .leaflet-container img.leaflet-image-layer, .leaflet-container .leaflet-tile { max-width: none !important; max-height: none !important; width: auto; padding: 0; } .leaflet-container img.leaflet-tile { mix-blend-mode: plus-lighter; } .leaflet-container.leaflet-touch-zoom { -ms-touch-action: pan-x pan-y; touch-action: pan-x pan-y; } .leaflet-container.leaflet-touch-drag { -ms-touch-action: pinch-zoom; touch-action: none; touch-action: pinch-zoom; } .leaflet-container.leaflet-touch-drag.leaflet-touch-zoom { -ms-touch-action: none; touch-action: none; } .leaflet-container { -webkit-tap-highlight-color: transparent; } .leaflet-container a { -webkit-tap-highlight-color: rgba(51, 181, 229, 0.4); } .leaflet-tile { filter: inherit; visibility: hidden; } .leaflet-tile-loaded { visibility: inherit; } .leaflet-zoom-box { width: 0; height: 0; -moz-box-sizing: border-box; box-sizing: border-box; z-index: 800; } .leaflet-overlay-pane svg { -moz-user-select: none; } .leaflet-pane { z-index: 400; } .leaflet-tile-pane { z-index: 200; } .leaflet-overlay-pane { z-index: 400; } .leaflet-shadow-pane { z-index: 500; } .leaflet-marker-pane { z-index: 600; } .leaflet-tooltip-pane { z-index: 650; } .leaflet-popup-pane { z-index: 700; } .leaflet-map-pane canvas { z-index: 100; } .leaflet-map-pane svg { z-index: 200; } .leaflet-vml-shape { width: 1px; height: 1px; } .lvml { behavior: url(#default#VML); display: inline-block; position: absolute; } .leaflet-control { position: relative; z-index: 800; pointer-events: visiblePainted; pointer-events: auto; } .leaflet-top, .leaflet-bottom { position: absolute; z-index: 1000; pointer-events: none; } .leaflet-top { top: 0; } .leaflet-right { right: 0; } .leaflet-bottom { bottom: 0; } .leaflet-left { left: 0; } .leaflet-control { float: left; clear: both; } .leaflet-right .leaflet-control { float: right; } .leaflet-top .leaflet-control { margin-top: 10px; } .leaflet-bottom .leaflet-control { margin-bottom: 10px; } .leaflet-left .leaflet-control { margin-left: 10px; } .leaflet-right .leaflet-control { margin-right: 10px; } .leaflet-fade-anim .leaflet-popup { opacity: 0; -webkit-transition: opacity 0.2s linear; -moz-transition: opacity 0.2s linear; transition: opacity 0.2s linear; } .leaflet-fade-anim .leaflet-map-pane .leaflet-popup { opacity: 1; } .leaflet-zoom-animated { -webkit-transform-origin: 0 0; -ms-transform-origin: 0 0; transform-origin: 0 0; } svg.leaflet-zoom-animated { will-change: transform; } .leaflet-zoom-anim .leaflet-zoom-animated { -webkit-transition: -webkit-transform 0.25s cubic-bezier(0,0,0.25,1); -moz-transition: -moz-transform 0.25s cubic-bezier(0,0,0.25,1); transition: transform 0.25s cubic-bezier(0,0,0.25,1); } .leaflet-zoom-anim .leaflet-tile, .leaflet-pan-anim .leaflet-tile { -webkit-transition: none; -moz-transition: none; transition: none; } .leaflet-zoom-anim .leaflet-zoom-hide { visibility: hidden; } .leaflet-interactive { cursor: pointer; } .leaflet-grab { cursor: -webkit-grab; cursor: -moz-grab; cursor: grab; } .leaflet-crosshair, .leaflet-crosshair .leaflet-interactive { cursor: crosshair; } .leaflet-popup-pane, .leaflet-control { cursor: auto; } .leaflet-dragging .leaflet-grab, .leaflet-dragging .leaflet-grab .leaflet-interactive, .leaflet-dragging .leaflet-marker-draggable { cursor: move; cursor: -webkit-grabbing; cursor: -moz-grabbing; cursor: grabbing; } .leaflet-marker-icon, .leaflet-marker-shadow, .leaflet-image-layer, .leaflet-pane > svg path, .leaflet-tile-container { pointer-events: none; } .leaflet-marker-icon.leaflet-interactive, .leaflet-image-layer.leaflet-interactive, .leaflet-pane > svg path.leaflet-interactive, svg.leaflet-image-layer.leaflet-interactive path { pointer-events: visiblePainted; pointer-events: auto; } .leaflet-container { background: #ddd; outline-offset: 1px; } .leaflet-container a { color: #0078A8; } .leaflet-zoom-box { border: 2px dotted #38f; background: rgba(255,255,255,0.5); } .leaflet-container { font-family: "Helvetica Neue", Arial, Helvetica, sans-serif; font-size: 12px; font-size: 0.75rem; line-height: 1.5; } .leaflet-bar { box-shadow: 0 1px 5px rgba(0,0,0,0.65); border-radius: 4px; } .leaflet-bar a { background-color: #fff; border-bottom: 1px solid #ccc; width: 26px; height: 26px; line-height: 26px; display: block; text-align: center; text-decoration: none; color: black; } .leaflet-bar a, .leaflet-control-layers-toggle { background-position: 50% 50%; background-repeat: no-repeat; display: block; } .leaflet-bar a:hover, .leaflet-bar a:focus { background-color: #f4f4f4; } .leaflet-bar a:first-child { border-top-left-radius: 4px; border-top-right-radius: 4px; } .leaflet-bar a:last-child { border-bottom-left-radius: 4px; border-bottom-right-radius: 4px; border-bottom: none; } .leaflet-bar a.leaflet-disabled { cursor: default; background-color: #f4f4f4; color: #bbb; } .leaflet-touch .leaflet-bar a { width: 30px; height: 30px; line-height: 30px; } .leaflet-touch .leaflet-bar a:first-child { border-top-left-radius: 2px; border-top-right-radius: 2px; } .leaflet-touch .leaflet-bar a:last-child { border-bottom-left-radius: 2px; border-bottom-right-radius: 2px; } .leaflet-control-zoom-in, .leaflet-control-zoom-out { font: bold 18px 'Lucida Console', Monaco, monospace; text-indent: 1px; } .leaflet-touch .leaflet-control-zoom-in, .leaflet-touch .leaflet-control-zoom-out { font-size: 22px; } .leaflet-control-layers { box-shadow: 0 1px 5px rgba(0,0,0,0.4); background: #fff; border-radius: 5px; } .leaflet-control-layers-toggle { background-image: url(images/layers.png); width: 36px; height: 36px; } .leaflet-retina .leaflet-control-layers-toggle { background-image: url(images/layers-2x.png); background-size: 26px 26px; } .leaflet-touch .leaflet-control-layers-toggle { width: 44px; height: 44px; } .leaflet-control-layers .leaflet-control-layers-list, .leaflet-control-layers-expanded .leaflet-control-layers-toggle { display: none; } .leaflet-control-layers-expanded .leaflet-control-layers-list { display: block; position: relative; } .leaflet-control-layers-expanded { padding: 6px 10px 6px 6px; color: #333; background: #fff; } .leaflet-control-layers-scrollbar { overflow-y: scroll; overflow-x: hidden; padding-right: 5px; } .leaflet-control-layers-selector { margin-top: 2px; position: relative; top: 1px; } .leaflet-control-layers label { display: block; font-size: 13px; font-size: 1.08333em; } .leaflet-control-layers-separator { height: 0; border-top: 1px solid #ddd; margin: 5px -10px 5px -6px; } .leaflet-default-icon-path { background-image: url(images/marker-icon.png); } .leaflet-container .leaflet-control-attribution { background: #fff; background: rgba(255, 255, 255, 0.8); margin: 0; } .leaflet-control-attribution, .leaflet-control-scale-line { padding: 0 5px; color: #333; line-height: 1.4; } .leaflet-control-attribution a { text-decoration: none; } .leaflet-control-attribution a:hover, .leaflet-control-attribution a:focus { text-decoration: underline; } .leaflet-attribution-flag { display: inline !important; vertical-align: baseline !important; width: 1em; height: 0.6669em; } .leaflet-left .leaflet-control-scale { margin-left: 5px; } .leaflet-bottom .leaflet-control-scale { margin-bottom: 5px; } .leaflet-control-scale-line { border: 2px solid #777; border-top: none; line-height: 1.1; padding: 2px 5px 1px; white-space: nowrap; -moz-box-sizing: border-box; box-sizing: border-box; background: rgba(255, 255, 255, 0.8); text-shadow: 1px 1px #fff; } .leaflet-control-scale-line:not(:first-child) { border-top: 2px solid #777; border-bottom: none; margin-top: -2px; } .leaflet-control-scale-line:not(:first-child):not(:last-child) { border-bottom: 2px solid #777; } .leaflet-touch .leaflet-control-attribution, .leaflet-touch .leaflet-control-layers, .leaflet-touch .leaflet-bar { box-shadow: none; } .leaflet-touch .leaflet-control-layers, .leaflet-touch .leaflet-bar { border: 2px solid rgba(0,0,0,0.2); background-clip: padding-box; } .leaflet-popup { position: absolute; text-align: center; margin-bottom: 20px; } .leaflet-popup-content-wrapper { padding: 1px; text-align: left; border-radius: 12px; } .leaflet-popup-content { margin: 13px 24px 13px 20px; line-height: 1.3; font-size: 13px; font-size: 1.08333em; min-height: 1px; } .leaflet-popup-content p { margin: 17px 0; margin: 1.3em 0; } .leaflet-popup-tip-container { width: 40px; height: 20px; position: absolute; left: 50%; margin-top: -1px; margin-left: -20px; overflow: hidden; pointer-events: none; } .leaflet-popup-tip { width: 17px; height: 17px; padding: 1px; margin: -10px auto 0; pointer-events: auto; -webkit-transform: rotate(45deg); -moz-transform: rotate(45deg); -ms-transform: rotate(45deg); transform: rotate(45deg); } .leaflet-popup-content-wrapper, .leaflet-popup-tip { background: white; color: #333; box-shadow: 0 3px 14px rgba(0,0,0,0.4); } .leaflet-container a.leaflet-popup-close-button { position: absolute; top: 0; right: 0; border: none; text-align: center; width: 24px; height: 24px; font: 16px/24px Tahoma, Verdana, sans-serif; color: #757575; text-decoration: none; background: transparent; } .leaflet-container a.leaflet-popup-close-button:hover, .leaflet-container a.leaflet-popup-close-button:focus { color: #585858; } .leaflet-popup-scrolled { overflow: auto; } .leaflet-oldie .leaflet-popup-content-wrapper { -ms-zoom: 1; } .leaflet-oldie .leaflet-popup-tip { width: 24px; margin: 0 auto; -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.70710678, M12=0.70710678, M21=-0.70710678, M22=0.70710678)"; filter: progid:DXImageTransform.Microsoft.Matrix(M11=0.70710678, M12=0.70710678, M21=-0.70710678, M22=0.70710678); } .leaflet-oldie .leaflet-control-zoom, .leaflet-oldie .leaflet-control-layers, .leaflet-oldie .leaflet-popup-content-wrapper, .leaflet-oldie .leaflet-popup-tip { border: 1px solid #999; } .leaflet-div-icon { background: #fff; border: 1px solid #666; } .leaflet-tooltip { position: absolute; padding: 6px; background-color: #fff; border: 1px solid #fff; border-radius: 3px; color: #222; white-space: nowrap; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; pointer-events: none; box-shadow: 0 1px 3px rgba(0,0,0,0.4); } .leaflet-tooltip.leaflet-interactive { cursor: pointer; pointer-events: auto; } .leaflet-tooltip-top:before, .leaflet-tooltip-bottom:before, .leaflet-tooltip-left:before, .leaflet-tooltip-right:before { position: absolute; pointer-events: none; border: 6px solid transparent; background: transparent; content: ""; } .leaflet-tooltip-bottom { margin-top: 6px; } .leaflet-tooltip-top { margin-top: -6px; } .leaflet-tooltip-bottom:before, .leaflet-tooltip-top:before { left: 50%; margin-left: -6px; } .leaflet-tooltip-top:before { bottom: 0; margin-bottom: -12px; border-top-color: #fff; } .leaflet-tooltip-bottom:before { top: 0; margin-top: -12px; margin-left: -6px; border-bottom-color: #fff; } .leaflet-tooltip-left { margin-left: -6px; } .leaflet-tooltip-right { margin-left: 6px; } .leaflet-tooltip-left:before, .leaflet-tooltip-right:before { top: 50%; margin-top: -6px; } .leaflet-tooltip-left:before { right: 0; margin-right: -12px; border-left-color: #fff; } .leaflet-tooltip-right:before { left: 0; margin-left: -12px; border-right-color: #fff; } @media print { .leaflet-control { -webkit-print-color-adjust: exact; print-color-adjust: exact; } } </style>
+<style>
+/* Layout: full-screen map, cartouche top-left, tool rail top-right, detail panel right (bottom sheet on phones). Single parchment theme. */
+:root {
+  --sea: #a7bdb6;
+  --sea-ink: #4e6f6c;
+  --land: #ecdfc0;
+  --ink: #3b2c1d;
+  --ink-soft: #6d5a43;
+  --rubric: #8c2a1c;
+  --vellum: #f6eedb;
+  --line: rgba(59, 44, 29, .22);
+  --font-display: "IM Fell English SC", "IM Fell English", Georgia, serif;
+  --font-label: "IM Fell English", Georgia, serif;
+  --font-body: "EB Garamond", Garamond, Georgia, serif;
+  color-scheme: light;
+}
+html, body { height: 100%; margin: 0; background: var(--sea); color: var(--ink); font-family: var(--font-body); }
+* { box-sizing: border-box; }
+button, input, select, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 2px solid var(--rubric); outline-offset: 2px; }
+
+#map { position: absolute; inset: 0; background: var(--sea); }
+.leaflet-container { font-family: var(--font-body); background: var(--sea); }
+#paper { position: absolute; inset: 0; pointer-events: none; z-index: 450; mix-blend-mode: multiply; opacity: .5; background-size: 512px 512px; }
+#vignette { position: absolute; inset: 0; pointer-events: none; z-index: 451; box-shadow: inset 0 0 120px rgba(70, 45, 20, .45), inset 0 0 18px rgba(70, 45, 20, .35); }
+
+/* panes */
+.leaflet-relief-pane { mix-blend-mode: soft-light; opacity: .95; }
+.leaflet-relief-pane img { image-rendering: auto; }
+.lbl { pointer-events: none; white-space: nowrap; text-align: center; transform: translate(-50%, -50%); width: max-content; }
+.leaflet-div-icon.lbl-wrap { background: none; border: 0; }
+.lbl-realm { font-family: var(--font-display); color: rgba(74, 46, 24, .78); letter-spacing: .14em; text-transform: uppercase; text-shadow: 0 0 3px rgba(240, 228, 200, .9), 0 0 6px rgba(240, 228, 200, .6); line-height: 1.05; max-width: 14em; white-space: normal; }
+.lbl-sea { font-family: var(--font-label); font-style: italic; color: var(--sea-ink); letter-spacing: .16em; font-size: 14px; text-shadow: 0 0 4px rgba(167, 189, 182, .9); }
+.lbl-mtn { font-family: var(--font-label); font-style: italic; color: #6b4b2e; font-size: 12.5px; letter-spacing: .08em; text-shadow: 0 0 3px rgba(240, 228, 200, .95); }
+.lbl-reg { font-family: var(--font-label); font-style: italic; color: #7a6248; font-size: 12px; text-shadow: 0 0 3px rgba(240, 228, 200, .95); }
+.city { display: flex; align-items: center; gap: 5px; transform: translate(-5px, -50%); width: max-content; cursor: pointer; }
+.city i { width: 7px; height: 7px; border-radius: 50%; background: var(--ink); border: 1.5px solid var(--vellum); box-shadow: 0 0 0 1px var(--ink); flex: none; }
+.city.r1 i { width: 9px; height: 9px; background: var(--rubric); }
+.city span { font-family: var(--font-label); font-size: 13px; color: var(--ink); text-shadow: 0 0 3px var(--land), 0 0 3px var(--land), 0 0 6px var(--land); }
+.city.r1 span { font-size: 14.5px; font-weight: 600; }
+.city.r3 span { font-size: 12px; color: #4d3b28; }
+.leaflet-div-icon.city-wrap, .leaflet-div-icon.pin-wrap { background: none; border: 0; }
+
+.pin { width: 32px; height: 38px; transform-origin: 50% 100%; transition: transform .12s; filter: drop-shadow(0 2px 2px rgba(40, 25, 10, .45)); }
+.pin-wrap:hover .pin, .pin.sel { transform: scale(1.18); }
+.pin.hidden-pl .body { stroke-dasharray: 3 2.5; fill-opacity: .55; }
+.pin-name { position: absolute; left: 50%; top: 38px; transform: translateX(-50%); white-space: nowrap; font-family: var(--font-label); font-size: 13.5px; font-weight: 600; color: var(--ink); text-shadow: 0 0 3px var(--vellum), 0 0 3px var(--vellum), 0 0 6px var(--vellum); pointer-events: none; }
+.pin-name.hidden-pl { font-style: italic; color: var(--ink-soft); }
+.hide-pin-names .pin-name { display: none; }
+
+/* cartouche */
+.cartouche { position: absolute; top: 12px; left: 12px; z-index: 900; background: var(--vellum); border: 1px solid #8a6f4c; box-shadow: 0 0 0 3px var(--vellum), 0 0 0 4px #8a6f4c, 0 6px 18px rgba(40, 25, 10, .3); padding: 8px 16px 9px; text-align: center; max-width: calc(100% - 90px); }
+.cartouche h1 { margin: 0; font-family: var(--font-display); font-weight: 400; font-size: 26px; letter-spacing: .14em; line-height: 1; text-wrap: balance; }
+.cartouche .ad { font-family: var(--font-label); font-style: italic; font-size: 14px; color: var(--ink-soft); margin-top: 2px; }
+.cartouche .mode { margin-top: 6px; font-size: 12.5px; display: flex; gap: 6px; justify-content: center; align-items: center; flex-wrap: wrap; }
+.chip { display: inline-flex; align-items: center; gap: 4px; padding: 1px 8px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255, 255, 255, .35); font-size: 12.5px; white-space: nowrap; }
+.chip.gm { border-color: rgba(140, 42, 28, .5); color: var(--rubric); }
+.chip.warn { border-color: #a07a2a; color: #7a5a12; }
+
+/* tool rail */
+.rail { position: absolute; top: 12px; right: 12px; z-index: 900; display: flex; flex-direction: column; gap: 8px; }
+.tool { display: flex; align-items: center; gap: 8px; min-height: 42px; padding: 0 12px 0 10px; background: var(--vellum); border: 1px solid #8a6f4c; border-radius: 4px; box-shadow: 0 2px 6px rgba(40, 25, 10, .25); font-size: 15.5px; color: var(--ink); justify-content: flex-start; }
+.tool svg { width: 20px; height: 20px; flex: none; }
+.tool:hover { background: #fffaf0; }
+.tool[aria-pressed="true"] { background: var(--ink); color: var(--vellum); border-color: var(--ink); }
+.tool.primary { background: var(--rubric); color: #fff8ec; border-color: #6b1f14; }
+.tool.primary[aria-pressed="true"] { background: #5e1a10; }
+@media (max-width: 720px) {
+  .tool span { display: none; }
+  .tool { padding: 0; width: 44px; justify-content: center; }
+  .cartouche { padding: 6px 10px 7px; }
+  .cartouche h1 { font-size: 20px; }
+  .cartouche .ad { font-size: 12.5px; }
+}
+
+/* banners */
+.banner { position: absolute; left: 50%; transform: translateX(-50%); bottom: 18px; z-index: 950; background: var(--ink); color: var(--vellum); padding: 9px 14px; border-radius: 4px; box-shadow: 0 4px 14px rgba(0, 0, 0, .3); display: none; align-items: center; gap: 12px; font-size: 15px; max-width: calc(100% - 24px); }
+.banner.on { display: flex; }
+.banner button { background: var(--vellum); color: var(--ink); border: 0; border-radius: 3px; padding: 4px 10px; white-space: nowrap; }
+#toast { bottom: 70px; background: #2f3b2f; }
+
+/* panels */
+.panel { position: absolute; top: 12px; left: 12px; bottom: 12px; width: 380px; z-index: 1000; background: var(--vellum); border: 1px solid #8a6f4c; box-shadow: 0 8px 28px rgba(40, 25, 10, .35); display: none; flex-direction: column; border-radius: 4px; }
+.panel.on { display: flex; }
+.panel header { display: flex; align-items: flex-start; gap: 10px; padding: 14px 16px 10px; border-bottom: 1px solid var(--line); }
+.panel header h2 { margin: 0; flex: 1; font-family: var(--font-display); font-weight: 400; font-size: 24px; line-height: 1.1; letter-spacing: .04em; text-wrap: balance; overflow-wrap: anywhere; }
+.panel .close { flex: none; width: 34px; height: 34px; border: 1px solid var(--line); background: transparent; border-radius: 3px; font-size: 20px; line-height: 1; }
+.panel .body { padding: 14px 16px 18px; overflow-y: auto; flex: 1; display: flex; flex-direction: column; gap: 14px; }
+.panel .meta { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.panel .desc { font-size: 17px; line-height: 1.5; white-space: pre-wrap; overflow-wrap: anywhere; margin: 0; }
+.panel .empty { color: var(--ink-soft); font-style: italic; }
+.secret { border-left: 3px solid var(--rubric); background: rgba(140, 42, 28, .06); padding: 8px 12px; }
+.secret h3 { margin: 0 0 4px; font-family: var(--font-display); font-weight: 400; font-size: 15px; color: var(--rubric); letter-spacing: .08em; }
+.secret p { margin: 0; white-space: pre-wrap; font-size: 16px; line-height: 1.45; overflow-wrap: anywhere; }
+.coords { font-size: 13.5px; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+.actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; padding-top: 6px; }
+.btn { border: 1px solid #8a6f4c; background: #fffaf0; border-radius: 3px; padding: 7px 13px; font-size: 15.5px; min-height: 38px; }
+.btn.main { background: var(--ink); color: var(--vellum); border-color: var(--ink); }
+.btn.danger { color: var(--rubric); border-color: rgba(140, 42, 28, .5); }
+.btn:disabled { opacity: .5; cursor: default; }
+label.f { display: flex; flex-direction: column; gap: 4px; font-size: 14.5px; color: var(--ink-soft); }
+label.f input, label.f select, label.f textarea { background: #fffdf6; border: 1px solid #b59f7e; border-radius: 3px; padding: 8px 10px; font-size: 16.5px; color: var(--ink); }
+label.f textarea { min-height: 96px; resize: vertical; line-height: 1.4; }
+label.f.gmonly textarea { border-color: rgba(140, 42, 28, .45); background: #fff8f2; }
+.toggle { display: flex; align-items: center; gap: 10px; font-size: 16px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 3px; background: rgba(255, 255, 255, .4); }
+.toggle input { width: 20px; height: 20px; accent-color: var(--rubric); }
+.hint { font-size: 13.5px; color: var(--ink-soft); margin: 0; line-height: 1.4; }
+
+.layers-list { display: flex; flex-direction: column; gap: 6px; }
+.layers-list label { display: flex; align-items: center; gap: 10px; font-size: 16.5px; padding: 4px 2px; }
+.layers-list input { width: 18px; height: 18px; accent-color: var(--ink); }
+.typefilter { display: flex; flex-wrap: wrap; gap: 6px; }
+.typefilter button { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--line); background: #fffaf0; border-radius: 999px; padding: 4px 10px 4px 6px; font-size: 14.5px; }
+.typefilter button[aria-pressed="false"] { opacity: .45; text-decoration: line-through; }
+.dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; flex: none; }
+.sec-title { font-family: var(--font-display); font-size: 15px; letter-spacing: .1em; color: var(--ink-soft); margin: 4px 0 0; font-weight: 400; }
+
+.results { display: flex; flex-direction: column; }
+.results button { text-align: left; background: none; border: 0; border-bottom: 1px solid var(--line); padding: 9px 4px; display: flex; gap: 10px; align-items: center; font-size: 16.5px; }
+.results button small { color: var(--ink-soft); font-size: 13.5px; margin-left: auto; }
+.results button:hover { background: rgba(255, 255, 255, .5); }
+
+#dialog { position: absolute; inset: 0; z-index: 2000; background: rgba(30, 20, 10, .45); display: none; align-items: center; justify-content: center; padding: 16px; }
+#dialog.on { display: flex; }
+#dialog .box { background: var(--vellum); border: 1px solid #8a6f4c; padding: 18px 20px; max-width: 420px; width: 100%; box-shadow: 0 10px 30px rgba(0, 0, 0, .35); display: flex; flex-direction: column; gap: 12px; }
+#dialog p { margin: 0; font-size: 17px; line-height: 1.45; }
+#dialog textarea { width: 100%; min-height: 180px; font-family: ui-monospace, Menlo, monospace; font-size: 12.5px; background: #fffdf6; border: 1px solid #b59f7e; padding: 8px; }
+
+.leaflet-control-scale-line { background: rgba(246, 238, 219, .85); border-color: var(--ink); color: var(--ink); font-family: var(--font-body); }
+.leaflet-bar a { background: var(--vellum); color: var(--ink); border-bottom-color: #b59f7e; }
+.leaflet-bar { border: 1px solid #8a6f4c !important; box-shadow: 0 2px 6px rgba(40, 25, 10, .25) !important; }
+.leaflet-control-attribution { background: rgba(246, 238, 219, .8) !important; font-size: 11px; color: var(--ink-soft); }
+.leaflet-control-attribution a { color: var(--ink-soft); }
+.adding .leaflet-container, .adding #map { cursor: crosshair; }
+#compass { position: absolute; left: 14px; bottom: 44px; z-index: 452; width: 74px; height: 74px; pointer-events: none; opacity: .8; }
+#loading { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 3000; background: var(--sea); font-family: var(--font-label); font-style: italic; font-size: 20px; color: var(--ink); transition: opacity .4s; }
+#loading.done { opacity: 0; pointer-events: none; }
+
+@media (max-width: 720px) {
+  .panel { top: auto; left: 0; right: 0; bottom: 0; width: auto; max-height: 72%; border-radius: 10px 10px 0 0; }
+  #compass { display: none; }
+  .banner { bottom: 12px; font-size: 14px; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<div id="map" aria-label="Carte de l'Europe vers 1220"></div>
+<div id="paper"></div>
+<div id="vignette"></div>
+<svg id="compass" viewBox="-50 -50 100 100" aria-hidden="true">
+  <circle r="30" fill="none" stroke="#5b4630" stroke-width="1"/>
+  <circle r="26" fill="none" stroke="#5b4630" stroke-width=".5"/>
+  <g fill="#5b4630"><path d="M0-46 5-5 0 0z"/><path d="M0 46 5 5 0 0z" opacity=".55"/><path d="M46 0 5 5 0 0z" opacity=".55"/><path d="M-46 0-5-5 0 0z" opacity=".55"/></g>
+  <g fill="#f6eedb" stroke="#5b4630" stroke-width=".6"><path d="M0-46-5-5 0 0z"/><path d="M0 46-5 5 0 0z"/><path d="M46 0 5-5 0 0z"/><path d="M-46 0-5 5 0 0z"/></g>
+  <g fill="#5b4630" opacity=".7"><path d="M24-24 3-1 0 0z"/><path d="M-24 24-3 1 0 0z"/><path d="M24 24 1 3 0 0z"/><path d="M-24-24-1-3 0 0z"/></g>
+  <text y="-37" text-anchor="middle" font-family="IM Fell English SC, serif" font-size="11" fill="#8c2a1c" dy="-12">N</text>
+</svg>
+
+<div class="cartouche" role="banner">
+  <h1>Europa</h1>
+  <div class="ad">Anno Domini MCCXX</div>
+  <div class="mode" id="modeLine"><span class="chip">Chargement des lieux…</span></div>
+</div>
+
+<nav class="rail" aria-label="Outils">
+  <button class="tool" id="bSearch" type="button" title="Rechercher un lieu ou une ville"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="10.5" cy="10.5" r="6"/><path d="m15 15 5.5 5.5"/></svg><span>Rechercher</span></button>
+  <button class="tool" id="bLayers" type="button" title="Couches et filtres"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3 9 5-9 5-9-5z"/><path d="m3 13 9 5 9-5"/></svg><span>Couches</span></button>
+  <button class="tool primary gmtool" id="bAdd" type="button" aria-pressed="false" title="Ajouter un lieu" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M5 12h14"/></svg><span>Ajouter un lieu</span></button>
+  <button class="tool gmtool" id="bPlayers" type="button" aria-pressed="false" title="Voir la carte comme les joueurs" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg><span>Vue joueurs</span></button>
+  <button class="tool gmtool" id="bBackup" type="button" title="Sauvegarder ou importer les lieux" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 4h11l3 3v13H5z"/><path d="M8 4v5h7V4M8 20v-6h8v6"/></svg><span>Sauvegarde</span></button>
+</nav>
+
+<aside class="panel" id="panel" aria-live="polite">
+  <header><h2 id="pTitle"></h2><button class="close" id="pClose" type="button" aria-label="Fermer">×</button></header>
+  <div class="body" id="pBody"></div>
+</aside>
+
+<div class="banner" id="previewBanner"><span>Aperçu : tu vois la carte comme tes joueurs.</span><button type="button" id="bExitPreview">Revenir à la vue MJ</button></div>
+<div class="banner" id="toast"><span id="toastText"></span><button type="button" id="toastBtn" hidden>Annuler</button></div>
+
+<div id="dialog" role="dialog" aria-modal="true"><div class="box" id="dialogBox"></div></div>
+<div id="loading">Le scribe trace les côtes…</div>
+
+<script src="leaflet.js"></script>
+<script>
+"use strict";
+// ---------------------------------------------------------------- constants
+const TYPES = {
+  alliance: { label: "Alliance", color: "#7a2e2a", g: '<path d="M8 20V9H7V5h2v2h2V5h2v2h2V5h2v4h-1v11z"/>' },
+  domus:    { label: "Ordre d'Hermès", color: "#4b2d6b", g: '<circle cx="12" cy="12" r="6" fill="none" stroke="#fff" stroke-width="2.2"/><circle cx="12" cy="12" r="2.2"/>' },
+  ville:    { label: "Ville, château", color: "#5a4a36", g: '<path d="M5 20v-8l7-6 7 6v8h-5v-5h-4v5z"/>' },
+  divin:    { label: "Lieu saint (Divin)", color: "#a37f17", g: '<path d="M10.5 4h3v5h5v3h-5v8h-3v-8h-5V9h5z"/>' },
+  magie:    { label: "Lieu de pouvoir (Magie)", color: "#2f5d8a", g: '<path d="M12 3l2 7 7 2-7 2-2 7-2-7-7-2 7-2z"/>' },
+  feerie:   { label: "Féerie", color: "#3f7a3a", g: '<path d="M5 19c0-9 5-14 15-14 0 10-5 15-15 14z"/>' },
+  infernal: { label: "Infernal", color: "#8e1f1f", g: '<path d="M12 3c1 4 6 6 6 11a6 6 0 0 1-12 0c0-3 2-4 3-6 0 2 1 3 2 3 0-3 0-5 1-8z"/>' },
+  ruine:    { label: "Ruine, site antique", color: "#6e6a60", g: '<path d="M7 5h10v2H7zm2 3h2v9H9zm4 0h2v9h-2zM6 18h12v2H6z"/>' },
+  pnj:      { label: "Personnage", color: "#9a5a2a", g: '<circle cx="12" cy="8" r="3.4"/><path d="M5.5 20c0-4.2 3-6.5 6.5-6.5s6.5 2.3 6.5 6.5z"/>' },
+  autre:    { label: "Autre", color: "#4a4a4a", g: '<circle cx="12" cy="12" r="3.8"/>' }
+};
+const REALM_TINTS = ["#c9a96b", "#9fb07a", "#d08e6c", "#86a3b4", "#c79ab3", "#b5c27f", "#dcb55e", "#a596c2", "#c48a5a"];
+const LS_PLACES = "europa1220.places.v1";
+const LS_PREFS = "europa1220.prefs.v1";
+const TRANSPARENT = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
+
+const $ = (id) => document.getElementById(id);
+const el = (tag, attrs = {}, ...kids) => {
+  const e = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) {
+    if (k === "class") e.className = v; else if (k === "text") e.textContent = v;
+    else if (k.startsWith("on")) e.addEventListener(k.slice(2), v); else if (v !== false && v != null) e.setAttribute(k, v === true ? "" : v);
+  }
+  for (const k of kids) if (k != null) e.append(k);
+  return e;
+};
+const lsGet = (k, d) => { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch { return d; } };
+const lsSet = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} };
+const fmtCoord = (lat, lng) => `${Math.abs(lat).toFixed(2).replace(".", ",")}° ${lat >= 0 ? "N" : "S"} · ${Math.abs(lng).toFixed(2).replace(".", ",")}° ${lng >= 0 ? "E" : "O"}`;
+const newId = () => "p" + Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+const clean = (s, n) => String(s ?? "").slice(0, n);
+const typeOf = (t) => TYPES[t] ? t : "autre";
+
+// ---------------------------------------------------------------- state
+const prefs = Object.assign({ realms: true, borders: true, relief: true, rivers: true, cities: true, names: true, places: true, pinNames: true, hiddenTypes: [] }, lsGet(LS_PREFS, {}));
+const S = {
+  mode: "loading",       // "shared" | "local" | "readonly"
+  isGM: false,
+  preview: false,
+  places: new Map(),      // id -> record
+  markers: new Map(),     // id -> L.marker
+  selected: null,
+  adding: false,
+  draft: null,            // {marker, lat, lng}
+  db: null
+};
+
+// ---------------------------------------------------------------- map
+const map = L.map("map", {
+  zoomControl: false, minZoom: 3, maxZoom: 10, zoomSnap: 0.5, zoomDelta: 0.5, wheelPxPerZoomLevel: 90,
+  maxBounds: [[18, -40], [76, 66]], maxBoundsViscosity: 0.8, worldCopyJump: false, preferCanvas: true, attributionControl: true
+});
+map.attributionControl.setPrefix(false);
+map.attributionControl.addAttribution('<a href="https://www.naturalearthdata.com/">Natural Earth</a> · <a href="https://github.com/aourednik/historical-basemaps">historical-basemaps</a>');
+L.control.zoom({ position: "bottomright", zoomInTitle: "Zoomer", zoomOutTitle: "Dézoomer" }).addTo(map);
+L.control.scale({ position: "bottomleft", imperial: false, maxWidth: 140 }).addTo(map);
+if (window.innerWidth < 720) map.setView([46, 12], 3.5); else map.setView([46.5, 11], 4.5);
+
+const pane = (name, z, pe = false) => { const p = map.createPane(name); p.style.zIndex = z; if (!pe) p.style.pointerEvents = "none"; return p; };
+pane("seabg", 350); pane("coastfx", 360); pane("land", 380); pane("realms", 390); pane("relief", 400); pane("water", 410); pane("borders", 420);
+pane("labels", 560); pane("cities", 590, true);
+const R = (p) => L.canvas({ pane: p, padding: 0.4 });
+const rCoast = R("coastfx"), rLand = R("land"), rRealms = R("realms"), rWater = R("water"), rBorders = R("borders");
+
+// paper grain (generated once)
+(function paper() {
+  const c = document.createElement("canvas"); c.width = c.height = 512;
+  const x = c.getContext("2d"); const img = x.createImageData(512, 512);
+  for (let i = 0; i < img.data.length; i += 4) {
+    const n = 225 + Math.random() * 30;
+    img.data[i] = n; img.data[i + 1] = n - 6; img.data[i + 2] = n - 18; img.data[i + 3] = 255;
+  }
+  x.putImageData(img, 0, 0);
+  x.globalAlpha = .05;
+  for (let i = 0; i < 70; i++) { x.fillStyle = Math.random() > .5 ? "#7a5a30" : "#fff"; x.beginPath(); x.ellipse(Math.random() * 512, Math.random() * 512, 20 + Math.random() * 90, 10 + Math.random() * 50, Math.random() * 3, 0, 7); x.fill(); }
+  $("paper").style.backgroundImage = `url(${c.toDataURL("image/png")})`;
+})();
+
+// ---------------------------------------------------------------- base layers
+const layers = {};
+async function getJSON(p) { const r = await fetch(p); if (!r.ok) throw new Error(p + " " + r.status); return r.json(); }
+
+let reliefTiles = {};
+const ReliefLayer = L.TileLayer.extend({
+  getTileUrl(c) { const b = reliefTiles[`${c.z}/${c.x}/${c.y}`]; return b ? "data:image/jpeg;base64," + b : TRANSPARENT; }
+});
+
+async function loadBase() {
+  const [land, realms, borders, lakes, rivers, labels, cities, reliefLo] = await Promise.all(
+    ["land", "realms", "borders", "lakes", "rivers", "labels", "cities", "relief_lo"].map((n) => getJSON(`data/${n}.json`)));
+
+  // opaque sea inside the map pane, so the relief blend has a backdrop
+  L.rectangle([[-80, -179], [85, 179]], { renderer: R("seabg"), interactive: false, stroke: false, fillColor: "#a7bdb6", fillOpacity: 1 }).addTo(map);
+  // coastal water-lining: dark ring, sea-coloured gap, inner dark band (land drawn above)
+  layers.coast = L.layerGroup([
+    L.geoJSON(land, { renderer: rCoast, interactive: false, style: { stroke: true, color: "#6f8f8a", weight: 15, opacity: .55, fill: false, lineJoin: "round" } }),
+    L.geoJSON(land, { renderer: rCoast, interactive: false, style: { stroke: true, color: "#a7bdb6", weight: 12, opacity: 1, fill: false, lineJoin: "round" } }),
+    L.geoJSON(land, { renderer: rCoast, interactive: false, style: { stroke: true, color: "#7d9a94", weight: 6, opacity: .55, fill: false, lineJoin: "round" } })
+  ]).addTo(map);
+  layers.land = L.geoJSON(land, { renderer: rLand, interactive: false, style: { color: "#4a3824", weight: 1.1, opacity: .9, fillColor: "#ecdfc0", fillOpacity: 1, lineJoin: "round" } }).addTo(map);
+  layers.realms = L.geoJSON(realms, { renderer: rRealms, interactive: false, style: (f) => ({ stroke: false, fillColor: f.properties.c >= 0 ? REALM_TINTS[f.properties.c] : "#000", fillOpacity: f.properties.c >= 0 ? .34 : 0 }) });
+  layers.borders = L.geoJSON(borders, { renderer: rBorders, interactive: false, style: { color: "#7a3b22", weight: 1.3, opacity: .75, dashArray: "5 4", lineCap: "butt" } });
+  layers.lakes = L.geoJSON(lakes, { renderer: rWater, interactive: false, style: { color: "#4a3824", weight: .7, opacity: .7, fillColor: "#a7bdb6", fillOpacity: 1 } });
+  layers.rivers = L.geoJSON(rivers, { renderer: rWater, interactive: false, style: riverStyle });
+  layers.water = L.layerGroup([layers.rivers, layers.lakes]);
+
+  reliefTiles = reliefLo;
+  layers.relief = new ReliefLayer("", { pane: "relief", minZoom: 3, maxZoom: 10, maxNativeZoom: 6, minNativeZoom: 3, bounds: [[24, -26], [72, 56]], keepBuffer: 4 });
+
+  // labels
+  layers.labelItems = [];
+  for (const f of realms.features) {
+    const p = f.properties; if (!p.n) continue;
+    const minZ = p.a > 150 ? 3 : p.a > 30 ? 4 : p.a > 4 ? 5.5 : 6.5;
+    addLabel([p.ly, p.lx], p.n, "realm", minZ, p.a);
+  }
+  for (const f of labels.features) {
+    const p = f.properties, [x, y] = f.geometry.coordinates;
+    if (p.k === "sea") addLabel([y, x], p.n, "sea", Math.max(3, p.z - 0.5));
+    else if (p.k === "mtn") addLabel([y, x], p.n, "mtn", Math.max(5, p.z));
+    else addLabel([y, x], p.n, "reg", Math.max(6, p.z + 1));
+  }
+  layers.labels = L.layerGroup(layers.labelItems.map((i) => i.m));
+
+  layers.cityItems = cities.map(([n, lat, lng, r]) => {
+    const icon = L.divIcon({ className: "city-wrap", html: `<div class="city r${r}"><i></i><span></span></div>`, iconSize: [0, 0] });
+    const m = L.marker([lat, lng], { icon, pane: "cities", keyboard: false, title: n });
+    m.on("add", () => { const s = m.getElement()?.querySelector("span"); if (s) s.textContent = n; });
+    m.on("click", (e) => { L.DomEvent.stopPropagation(e); if (S.adding) return finishAdd(e.latlng ? m.getLatLng() : m.getLatLng(), n); showCity(n, lat, lng, r); });
+    return { m, minZ: r === 1 ? 4 : r === 2 ? 5 : 6, name: n, lat, lng, r };
+  });
+  layers.cities = L.layerGroup(layers.cityItems.map((c) => c.m));
+  layers.allCities = cities;
+
+  applyLayerPrefs();
+  updateZoomStyles();
+  map.on("zoomend", updateZoomStyles);
+  $("loading").classList.add("done");
+
+  getJSON("data/relief_hi.json").then((hi) => {
+    Object.assign(reliefTiles, hi);
+    // re-add rather than redraw(): redraw() keeps fractional zoom levels in Leaflet 1.9
+    if (map.hasLayer(layers.relief)) { map.removeLayer(layers.relief); layers.relief.addTo(map); }
+  }).catch(() => {});
+}
+
+function addLabel(latlng, text, kind, minZ, area = 0) {
+  const icon = L.divIcon({ className: "lbl-wrap", html: `<div class="lbl lbl-${kind}"></div>`, iconSize: [0, 0] });
+  const m = L.marker(latlng, { icon, pane: "labels", interactive: false, keyboard: false });
+  m.on("add", () => { const d = m.getElement()?.firstChild; if (d) { d.textContent = text; styleLabel(d, kind, area); } });
+  layers.labelItems.push({ m, kind, minZ, area });
+}
+function styleLabel(d, kind, area) {
+  const z = map.getZoom();
+  if (kind === "realm") {
+    const fs = Math.max(9, Math.min(28, (5 + 1.7 * Math.log2(area + 1)) * Math.pow(1.2, z - 4)));
+    d.style.fontSize = fs.toFixed(1) + "px";
+    d.style.opacity = z > 7.5 ? .55 : 1;
+  } else if (kind === "sea") {
+    d.style.fontSize = Math.min(22, 12 + (z - 3) * 2) + "px";
+  }
+}
+function riverStyle(f) {
+  const z = map.getZoom(), p = f.properties;
+  if (p.z > z + 1.6) return { stroke: false };
+  const k = z < 4 ? .55 : z < 5 ? .75 : z < 6.5 ? 1 : z < 8 ? 1.5 : 2;
+  return { color: "#527f8c", weight: (0.5 + p.w * 0.9) * k, opacity: .85, lineCap: "round", lineJoin: "round" };
+}
+function updateZoomStyles() {
+  const z = map.getZoom();
+  if (layers.rivers && map.hasLayer(layers.rivers)) layers.rivers.setStyle(riverStyle);
+  if (layers.labelItems) for (const it of layers.labelItems) {
+    const on = z >= it.minZ && !(it.kind === "reg" && z > 8);
+    const e = it.m.getElement(); if (!e) continue;
+    e.style.display = on ? "" : "none";
+    if (on) styleLabel(e.firstChild, it.kind, it.area);
+  }
+  if (layers.cityItems) for (const c of layers.cityItems) { const e = c.m.getElement(); if (e) e.style.display = z >= c.minZ ? "" : "none"; }
+  const w = z < 4 ? [9, 7, 3.5] : z < 6 ? [15, 12, 6] : [22, 17, 8];
+  if (layers.coast) layers.coast.getLayers().forEach((l, i) => l.setStyle({ weight: w[i] }));
+  document.body.classList.toggle("hide-pin-names", z < 5 || !prefs.pinNames);
+}
+
+function applyLayerPrefs() {
+  const set = (lyr, on) => { if (!lyr) return; if (on && !map.hasLayer(lyr)) lyr.addTo(map); if (!on && map.hasLayer(lyr)) map.removeLayer(lyr); };
+  set(layers.realms, prefs.realms); set(layers.borders, prefs.borders); set(layers.relief, prefs.relief);
+  set(layers.water, prefs.rivers); set(layers.cities, prefs.cities); set(layers.labels, prefs.names);
+  renderPlaces();
+  updateZoomStyles();
+  lsSet(LS_PREFS, prefs);
+}
+
+// ---------------------------------------------------------------- places rendering
+function pinSVG(type, hidden, selected) {
+  const t = TYPES[typeOf(type)];
+  return `<svg class="pin${hidden ? " hidden-pl" : ""}${selected ? " sel" : ""}" viewBox="0 0 32 38" aria-hidden="true">
+    <path class="body" d="M16 1.5C8.5 1.5 3.5 6.9 3.5 13.6 3.5 22.5 16 36.5 16 36.5S28.5 22.5 28.5 13.6C28.5 6.9 23.5 1.5 16 1.5z" fill="${t.color}" stroke="#f6eedb" stroke-width="1.6"/>
+    <g fill="#fff" transform="translate(7 4.6) scale(.75)">${t.g}</g></svg>`;
+}
+function visiblePlaces() {
+  const out = [];
+  for (const p of S.places.values()) {
+    if (prefs.hiddenTypes.includes(typeOf(p.type))) continue;
+    if ((!S.isGM || S.preview) && !p.visible) continue;
+    out.push(p);
+  }
+  return out;
+}
+function renderPlaces() {
+  const want = new Set(prefs.places ? visiblePlaces().map((p) => p.id) : []);
+  for (const [id, m] of S.markers) if (!want.has(id)) { map.removeLayer(m); S.markers.delete(id); }
+  for (const id of want) {
+    const p = S.places.get(id);
+    const hidden = S.isGM && !S.preview && !p.visible;
+    const html = `<div style="position:relative">${pinSVG(p.type, hidden, S.selected === id)}<div class="pin-name${hidden ? " hidden-pl" : ""}"></div></div>`;
+    const icon = L.divIcon({ className: "pin-wrap", html, iconSize: [32, 38], iconAnchor: [16, 37] });
+    let m = S.markers.get(id);
+    if (!m) {
+      m = L.marker([p.lat, p.lng], { icon, riseOnHover: true, title: p.name, keyboard: true });
+      m.on("click", (e) => { L.DomEvent.stopPropagation(e); showPlace(id); });
+      m.on("dragend", () => onDragEnd(id, m));
+      m.addTo(map); S.markers.set(id, m);
+    } else { m.setLatLng([p.lat, p.lng]); m.setIcon(icon); }
+    const nameEl = m.getElement()?.querySelector(".pin-name"); if (nameEl) nameEl.textContent = p.name;
+    if (m.dragging) { (S.isGM && !S.preview && S.selected === id && S.editing) ? m.dragging.enable() : m.dragging.disable(); }
+    m.setZIndexOffset(S.selected === id ? 1000 : 0);
+  }
+  updateModeLine();
+}
+
+// ---------------------------------------------------------------- storage
+async function initStorage() {
+  const C = window.claude && typeof window.claude.use === "function" ? window.claude : null;
+  let user = null, db = null;
+  if (C) {
+    try { [user, db] = await Promise.all([C.use("user"), C.use("db")]); } catch { user = null; db = null; }
+  }
+  if (db) {
+    let gm = false;
+    try { gm = (await user?.isOwner()) || (await user?.canEdit()) || false; } catch { gm = false; }
+    S.db = db; S.isGM = !!gm; S.mode = "shared";
+    subscribeShared();
+  } else if (C && user) {
+    // inside Claude but no shared store for this viewer (signed out, or not served)
+    S.mode = "readonly"; S.isGM = false;
+  } else if (location.hash === "#mj") {
+    // GM working copy kept in this browser (static hosting, e.g. GitHub Pages)
+    S.mode = "local"; S.isGM = true;
+    for (const p of lsGet(LS_PLACES, [])) if (p && p.id) S.places.set(p.id, sanitize(p));
+  } else {
+    // public player map: only the revealed places published in data/places.json
+    S.mode = "static"; S.isGM = false;
+    try {
+      const r = await fetch("data/places.json", { cache: "no-cache" });
+      const arr = r.ok ? await r.json() : [];
+      if (Array.isArray(arr)) for (const p of arr) if (p && p.id) S.places.set(p.id, sanitize({ ...p, notes: "", visible: true }));
+    } catch {}
+  }
+  document.querySelectorAll(".gmtool").forEach((b) => b.hidden = !S.isGM);
+  renderPlaces();
+}
+
+function sanitize(p) {
+  return {
+    id: clean(p.id, 60), name: clean(p.name, 120) || "Sans nom", type: typeOf(p.type),
+    lat: +p.lat || 0, lng: +p.lng || 0, desc: clean(p.desc, 4000), notes: clean(p.notes, 4000), visible: !!p.visible,
+    updatedAt: +p.updatedAt || 0
+  };
+}
+
+let loadTimer = null;
+function subscribeShared() {
+  const col = S.isGM ? "gm" : "pub";
+  loadTimer = setTimeout(() => { S.loadNote = "Les lieux ne répondent pas encore, ils s'afficheront dès que possible."; updateModeLine(); }, 10000);
+  S.db.collection(col).onSnapshot((snap) => {
+    if (!snap.metadata.fromCache) { clearTimeout(loadTimer); S.loadNote = null; }
+    S.places.clear();
+    for (const d of snap.docs) { const v = d.data(); if (v) S.places.set(d.id, sanitize({ ...v, id: d.id, visible: S.isGM ? v.visible : true })); }
+    if (S.selected && !S.places.has(S.selected) && !S.editing) closePanel();
+    renderPlaces();
+    if (S.selected && !S.editing && $("panel").classList.contains("on") && S.places.has(S.selected)) showPlace(S.selected, false);
+  }, (e) => { clearTimeout(loadTimer); S.loadNote = "Lieux indisponibles pour le moment."; updateModeLine(); });
+}
+
+function publicView(p) { return { name: p.name, type: p.type, lat: p.lat, lng: p.lng, desc: p.desc, updatedAt: p.updatedAt }; }
+
+async function savePlace(p) {
+  p = sanitize({ ...p, updatedAt: Date.now() });
+  const prev = S.places.get(p.id);
+  S.places.set(p.id, p); renderPlaces();
+  if (S.mode === "local") { lsSet(LS_PLACES, [...S.places.values()]); return true; }
+  try {
+    await S.db.collection("gm").doc(p.id).set({ ...p });
+    if (p.visible) await S.db.collection("pub").doc(p.id).set(publicView(p));
+    else if (!prev || prev.visible || true) await S.db.collection("pub").doc(p.id).delete();
+    return true;
+  } catch (e) {
+    toast(e && e.code === "quota_exceeded" ? "La réserve de lieux est pleine. Supprime des lieux pour en ajouter." : "L'enregistrement a échoué. Réessaie dans un instant.");
+    if (prev) S.places.set(p.id, prev); else S.places.delete(p.id);
+    renderPlaces(); return false;
+  }
+}
+async function deletePlace(id) {
+  const prev = S.places.get(id);
+  S.places.delete(id); renderPlaces();
+  if (S.mode === "local") { lsSet(LS_PLACES, [...S.places.values()]); return true; }
+  try { await S.db.collection("pub").doc(id).delete(); await S.db.collection("gm").doc(id).delete(); return true; }
+  catch { if (prev) S.places.set(id, prev); renderPlaces(); toast("La suppression a échoué. Réessaie dans un instant."); return false; }
+}
+
+// ---------------------------------------------------------------- UI: mode line
+function updateModeLine() {
+  const ml = $("modeLine"); ml.replaceChildren();
+  const n = visiblePlaces().length;
+  if (S.mode === "loading") { ml.append(el("span", { class: "chip", text: "Chargement des lieux…" })); return; }
+  if (S.isGM && !S.preview) {
+    ml.append(el("span", { class: "chip gm", text: "Vue MJ" }));
+    const hiddenCount = [...S.places.values()].filter((p) => !p.visible).length;
+    ml.append(el("span", { class: "chip", text: `${S.places.size} lieu${S.places.size > 1 ? "x" : ""}, ${hiddenCount} caché${hiddenCount > 1 ? "s" : ""}` }));
+  } else if (S.mode !== "readonly") {
+    ml.append(el("span", { class: "chip", text: S.preview ? "Aperçu joueurs" : "Vue joueurs" }));
+    ml.append(el("span", { class: "chip", text: `${n} lieu${n > 1 ? "x" : ""}` }));
+  }
+  if (S.mode === "local") ml.append(el("span", { class: "chip warn", text: "Enregistré dans ce navigateur", title: "Les lieux restent sur cet appareil. Exporte la version joueurs pour les publier." }));
+  if (S.mode === "readonly") ml.append(el("span", { class: "chip warn", text: "Connecte-toi à Claude pour voir les lieux" }));
+  if (S.loadNote) ml.append(el("span", { class: "chip warn", text: S.loadNote }));
+}
+
+// ---------------------------------------------------------------- UI: panel
+function openPanel(title, nodes) {
+  $("pTitle").textContent = title;
+  $("pBody").replaceChildren(...nodes);
+  $("panel").classList.add("on");
+}
+function closePanel() {
+  $("panel").classList.remove("on");
+  if (S.draft) { map.removeLayer(S.draft.marker); S.draft = null; }
+  S.editing = false; S.selected = null; S.panelKind = null;
+  renderPlaces();
+}
+$("pClose").onclick = closePanel;
+document.addEventListener("keydown", (e) => { if (e.key === "Escape") { if ($("dialog").classList.contains("on")) closeDialog(); else if (S.adding) stopAdd(); else closePanel(); } });
+
+function typeChip(t) {
+  const T = TYPES[typeOf(t)];
+  return el("span", { class: "chip" }, el("span", { class: "dot", style: `background:${T.color}` }), T.label);
+}
+
+function showPlace(id, pan = true) {
+  const p = S.places.get(id); if (!p) return;
+  S.selected = id; S.editing = false; S.panelKind = "place";
+  if (S.draft) { map.removeLayer(S.draft.marker); S.draft = null; }
+  const gm = S.isGM && !S.preview;
+  const meta = el("div", { class: "meta" }, typeChip(p.type));
+  if (gm) meta.append(el("span", { class: "chip " + (p.visible ? "" : "gm"), text: p.visible ? "Visible par les joueurs" : "Caché aux joueurs" }));
+  const nodes = [meta];
+  nodes.push(p.desc ? el("p", { class: "desc", text: p.desc }) : el("p", { class: "desc empty", text: gm ? "Pas encore de description pour les joueurs." : "Aucune description." }));
+  if (gm && p.notes) nodes.push(el("div", { class: "secret" }, el("h3", { text: "Notes du MJ" }), el("p", { text: p.notes })));
+  nodes.push(el("div", { class: "coords", text: fmtCoord(p.lat, p.lng) }));
+  if (gm) {
+    nodes.push(el("div", { class: "actions" },
+      el("button", { class: "btn main", type: "button", text: "Modifier", onclick: () => editPlace(id) }),
+      el("button", { class: "btn", type: "button", text: p.visible ? "Cacher aux joueurs" : "Révéler aux joueurs", onclick: async (e) => { e.target.disabled = true; await savePlace({ ...p, visible: !p.visible }); showPlace(id, false); } }),
+      el("button", { class: "btn danger", type: "button", text: "Supprimer", onclick: () => confirmDelete(id) })));
+  }
+  openPanel(p.name, nodes);
+  renderPlaces();
+  if (pan) focusOn([p.lat, p.lng]);
+}
+
+function focusOn(latlng, zoom) {
+  const z = Math.max(map.getZoom(), zoom || 0);
+  const mobile = window.innerWidth < 720;
+  const pt = map.project(latlng, z);
+  const off = mobile ? L.point(0, window.innerHeight * 0.22) : L.point(-190, 0);
+  map.flyTo(map.unproject(pt.add(off), z), z, { duration: .6 });
+}
+
+function showCity(n, lat, lng, r) {
+  S.selected = null; S.editing = false; S.panelKind = "city";
+  const nodes = [el("div", { class: "meta" }, el("span", { class: "chip", text: r === 1 ? "Grande ville" : r === 2 ? "Ville importante" : "Ville" })),
+    el("div", { class: "coords", text: fmtCoord(lat, lng) })];
+  if (S.isGM && !S.preview) nodes.push(el("div", { class: "actions" }, el("button", { class: "btn main", type: "button", text: "Créer un lieu ici", onclick: () => editPlace(null, { lat, lng, name: n, type: "ville" }) })));
+  openPanel(n, nodes);
+  renderPlaces();
+}
+
+function editPlace(id, seed) {
+  const existing = id ? S.places.get(id) : null;
+  const p = existing ? { ...existing } : { id: newId(), name: seed?.name || "", type: seed?.type || "alliance", lat: seed.lat, lng: seed.lng, desc: "", notes: "", visible: false };
+  S.selected = existing ? id : null; S.editing = true; S.panelKind = "edit";
+  if (!existing) {
+    if (S.draft) map.removeLayer(S.draft.marker);
+    const icon = L.divIcon({ className: "pin-wrap", html: pinSVG(p.type, true, true), iconSize: [32, 38], iconAnchor: [16, 37] });
+    const dm = L.marker([p.lat, p.lng], { icon, draggable: true, zIndexOffset: 2000 }).addTo(map);
+    dm.on("dragend", () => { const ll = dm.getLatLng(); p.lat = ll.lat; p.lng = ll.lng; coordsEl.textContent = fmtCoord(p.lat, p.lng); });
+    S.draft = { marker: dm };
+  }
+  renderPlaces();
+  if (existing) {
+    const m = S.markers.get(id);
+    if (m) m.off("dragend").on("dragend", () => { const ll = m.getLatLng(); p.lat = ll.lat; p.lng = ll.lng; coordsEl.textContent = fmtCoord(p.lat, p.lng); });
+  }
+  const fName = el("input", { id: "fName", type: "text", maxlength: "120", required: true, value: p.name, placeholder: "Ex. Alliance de Mistridge" });
+  const fType = el("select", { id: "fType" }, ...Object.entries(TYPES).map(([k, t]) => { const o = el("option", { value: k, text: t.label }); if (k === p.type) o.selected = true; return o; }));
+  fType.onchange = () => { if (S.draft) S.draft.marker.setIcon(L.divIcon({ className: "pin-wrap", html: pinSVG(fType.value, true, true), iconSize: [32, 38], iconAnchor: [16, 37] })); };
+  const fDesc = el("textarea", { id: "fDesc", maxlength: "4000", placeholder: "Ce que les joueurs peuvent lire quand le lieu est révélé." }); fDesc.value = p.desc;
+  const fNotes = el("textarea", { id: "fNotes", maxlength: "4000", placeholder: "Secrets, intrigues, PNJ, aura… jamais montrés aux joueurs." }); fNotes.value = p.notes;
+  const fVis = el("input", { id: "fVis", type: "checkbox" }); fVis.checked = p.visible;
+  const coordsEl = el("div", { class: "coords", text: fmtCoord(p.lat, p.lng) });
+  const saveBtn = el("button", { class: "btn main", type: "submit", text: "Enregistrer" });
+  const form = el("form", { style: "display:flex;flex-direction:column;gap:14px" },
+    el("label", { class: "f", for: "fName" }, "Nom", fName),
+    el("label", { class: "f", for: "fType" }, "Type", fType),
+    el("label", { class: "f", for: "fDesc" }, "Description pour les joueurs", fDesc),
+    el("label", { class: "f gmonly", for: "fNotes" }, "Notes du MJ (secrètes)", fNotes),
+    el("label", { class: "toggle", for: "fVis" }, fVis, "Visible par les joueurs"),
+    el("div", {}, coordsEl, el("p", { class: "hint", text: "Fais glisser l'épingle sur la carte pour la déplacer." })),
+    el("div", { class: "actions" }, saveBtn,
+      el("button", { class: "btn", type: "button", text: "Annuler", onclick: () => existing ? showPlace(id, false) : closePanel() }),
+      existing ? el("button", { class: "btn danger", type: "button", text: "Supprimer", onclick: () => confirmDelete(id) }) : null));
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const name = fName.value.trim(); if (!name) { fName.focus(); return; }
+    saveBtn.disabled = true; saveBtn.textContent = "Enregistrement…";
+    const rec = { ...p, name, type: fType.value, desc: fDesc.value.trim(), notes: fNotes.value.trim(), visible: fVis.checked };
+    if (S.draft) { map.removeLayer(S.draft.marker); S.draft = null; }
+    const ok = await savePlace(rec);
+    if (ok) { S.editing = false; showPlace(rec.id, false); } else { saveBtn.disabled = false; saveBtn.textContent = "Enregistrer"; }
+  });
+  openPanel(existing ? "Modifier le lieu" : "Nouveau lieu", [form]);
+  setTimeout(() => { if (!existing && window.innerWidth >= 720) fName.focus(); }, 50);
+}
+
+function onDragEnd() { /* handled per edit session */ }
+
+function confirmDelete(id) {
+  const p = S.places.get(id); if (!p) return;
+  openDialog([el("p", { text: `Supprimer « ${p.name} » ? Cette action est définitive.` }),
+    el("div", { class: "actions" },
+      el("button", { class: "btn danger", type: "button", text: "Supprimer", onclick: async () => { closeDialog(); closePanel(); await deletePlace(id); } }),
+      el("button", { class: "btn", type: "button", text: "Garder", onclick: closeDialog }))]);
+}
+function openDialog(nodes) { $("dialogBox").replaceChildren(...nodes); $("dialog").classList.add("on"); }
+function closeDialog() { $("dialog").classList.remove("on"); }
+$("dialog").addEventListener("click", (e) => { if (e.target.id === "dialog") closeDialog(); });
+
+let toastT = null;
+function toast(msg, ms = 4000) { $("toastText").textContent = msg; $("toast").classList.add("on"); clearTimeout(toastT); if (ms) toastT = setTimeout(() => $("toast").classList.remove("on"), ms); }
+
+// ---------------------------------------------------------------- adding
+function startAdd() {
+  S.adding = true; $("bAdd").setAttribute("aria-pressed", "true"); document.body.classList.add("adding");
+  closePanel();
+  toast("Touche la carte à l'endroit du nouveau lieu.", 0);
+  $("toastBtn").hidden = false;
+}
+function stopAdd() { S.adding = false; $("bAdd").setAttribute("aria-pressed", "false"); document.body.classList.remove("adding"); $("toast").classList.remove("on"); $("toastBtn").hidden = true; }
+function finishAdd(latlng, name) { stopAdd(); editPlace(null, { lat: latlng.lat, lng: latlng.lng, name: name || "" }); }
+$("toastBtn").onclick = stopAdd;
+$("bAdd").onclick = () => S.adding ? stopAdd() : startAdd();
+map.on("click", (e) => { if (S.adding) finishAdd(e.latlng); });
+map.on("contextmenu", (e) => { if (S.isGM && !S.preview) finishAdd(e.latlng); });
+
+// ---------------------------------------------------------------- preview toggle
+function setPreview(on) {
+  S.preview = on; $("bPlayers").setAttribute("aria-pressed", String(on));
+  $("previewBanner").classList.toggle("on", on);
+  document.querySelectorAll(".gmtool").forEach((b) => { if (b.id !== "bPlayers") b.hidden = on; });
+  if (on && S.adding) stopAdd();
+  closePanel();
+}
+$("bPlayers").onclick = () => setPreview(!S.preview);
+$("bExitPreview").onclick = () => setPreview(false);
+
+// ---------------------------------------------------------------- layers panel
+$("bLayers").onclick = () => {
+  S.panelKind = "layers";
+  const row = (key, label) => { const i = el("input", { type: "checkbox", id: "ly-" + key }); i.checked = !!prefs[key]; i.onchange = () => { prefs[key] = i.checked; applyLayerPrefs(); }; return el("label", { for: "ly-" + key }, i, label); };
+  const tf = el("div", { class: "typefilter" }, ...Object.entries(TYPES).map(([k, t]) => {
+    const b = el("button", { type: "button", "aria-pressed": String(!prefs.hiddenTypes.includes(k)) }, el("span", { class: "dot", style: `background:${t.color}` }), t.label);
+    b.onclick = () => { const h = new Set(prefs.hiddenTypes); h.has(k) ? h.delete(k) : h.add(k); prefs.hiddenTypes = [...h]; b.setAttribute("aria-pressed", String(!h.has(k))); applyLayerPrefs(); };
+    return b;
+  }));
+  openPanel("Couches", [
+    el("div", { class: "layers-list" }, row("realms", "Royaumes (couleurs)"), row("borders", "Frontières vers 1220"), row("relief", "Relief"), row("rivers", "Fleuves et lacs"), row("cities", "Villes de l'époque"), row("names", "Noms des royaumes, mers et montagnes"), row("places", "Mes lieux"), row("pinNames", "Noms sous les épingles")),
+    el("h3", { class: "sec-title", text: "Types de lieux" }), tf,
+    el("p", { class: "hint", text: "Les frontières viennent d'un jeu de données vers 1200, corrigé à la main pour 1220 (Normandie et Anjou à la France, sultanat de Roum, Trébizonde, États latins). Elles restent approximatives." })
+  ]);
+};
+
+// ---------------------------------------------------------------- search
+$("bSearch").onclick = () => {
+  S.panelKind = "search";
+  const inp = el("input", { id: "q", type: "search", placeholder: "Nom d'un lieu ou d'une ville", autocomplete: "off" });
+  const res = el("div", { class: "results" });
+  const norm = (s) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+  const run = () => {
+    const q = norm(inp.value.trim()); res.replaceChildren();
+    const items = [];
+    for (const p of visiblePlaces()) if (!q || norm(p.name).includes(q)) items.push({ n: p.name, k: TYPES[typeOf(p.type)].label, c: TYPES[typeOf(p.type)].color, go: () => showPlace(p.id) });
+    if (q) for (const [n, lat, lng, r] of layers.allCities || []) if (norm(n).includes(q)) items.push({ n, k: "Ville", c: "#3b2c1d", go: () => { focusOn([lat, lng], 7); showCity(n, lat, lng, r); } });
+    for (const it of items.slice(0, 60)) res.append(el("button", { type: "button", onclick: it.go }, el("span", { class: "dot", style: `background:${it.c}` }), it.n, el("small", { text: it.k })));
+    if (!items.length) res.append(el("p", { class: "hint", text: q ? "Aucun résultat." : "Aucun lieu pour l'instant." }));
+  };
+  inp.oninput = run;
+  openPanel("Rechercher", [el("label", { class: "f", for: "q" }, "Recherche", inp), res]);
+  run(); setTimeout(() => inp.focus(), 50);
+};
+
+// ---------------------------------------------------------------- backup
+$("bBackup").onclick = () => {
+  const data = JSON.stringify([...S.places.values()], null, 1);
+  const ta = el("textarea", { id: "bk", readonly: true }); ta.value = data;
+  const imp = el("textarea", { id: "imp", placeholder: "Colle ici une sauvegarde pour l'importer." });
+  const file = el("input", { id: "impFile", type: "file", accept: ".json,application/json,text/plain" });
+  file.onchange = async () => { const f = file.files[0]; if (f) imp.value = await f.text(); };
+  const status = el("p", { class: "hint" });
+  const players = JSON.stringify([...S.places.values()].filter((p) => p.visible).map((p) => ({ id: p.id, name: p.name, type: p.type, lat: +p.lat.toFixed(5), lng: +p.lng.toFixed(5), desc: p.desc })), null, 1);
+  const nPl = [...S.places.values()].filter((p) => p.visible).length;
+  const pstatus = el("p", { class: "hint" });
+  const dlBtn = el("button", { class: "btn", type: "button", text: "Télécharger places.json", hidden: true, onclick: async () => {
+    try {
+      const d = window.claude ? await window.claude.use("downloads") : null;
+      if (d) { await d.save({ filename: "places.json", data: players }); pstatus.textContent = "Fichier enregistré."; return; }
+      const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([players], { type: "application/json" })); a.download = "places.json"; document.body.append(a); a.click(); a.remove();
+    } catch { pstatus.textContent = "Le téléchargement a été refusé. Utilise plutôt Copier."; }
+  } });
+  (async () => { try { if (!window.claude) { dlBtn.hidden = false; return; } if (await window.claude.use("downloads")) dlBtn.hidden = false; } catch {} })();
+  openPanel("Sauvegarde", [
+    el("h3", { class: "sec-title", text: "Version joueurs" }),
+    el("p", { class: "hint", text: `Les ${nPl} lieu(x) révélé(s), sans tes notes ni les lieux cachés. Sur GitHub, colle ce texte dans le fichier data/places.json de ta carte publique, puis valide.` }),
+    el("div", { class: "actions" },
+      el("button", { class: "btn main", type: "button", text: "Copier la version joueurs", onclick: async () => { try { await navigator.clipboard.writeText(players); pstatus.textContent = "Copiée. Colle-la dans data/places.json sur GitHub."; } catch { pstatus.textContent = "La copie a été refusée par le navigateur. Utilise le téléchargement."; } } }),
+      dlBtn),
+    pstatus,
+    el("h3", { class: "sec-title", text: "Sauvegarde complète (MJ)" }),
+    el("p", { class: "hint", text: S.mode === "shared" ? "Tes lieux sont enregistrés avec la carte. Copie cette sauvegarde de temps en temps pour l'archiver." : "Tes lieux sont enregistrés dans ce navigateur seulement. Copie cette sauvegarde pour les garder ou les transférer." }),
+    el("label", { class: "f", for: "bk" }, `Sauvegarde (${S.places.size} lieux)`, ta),
+    el("div", { class: "actions" }, el("button", { class: "btn", type: "button", text: "Copier la sauvegarde", onclick: async () => { try { await navigator.clipboard.writeText(data); status.textContent = "Copiée."; } catch { ta.select(); status.textContent = "Sélectionnée : copie-la avec Ctrl+C ou un appui long."; } } })),
+    el("h3", { class: "sec-title", text: "Importer" }),
+    el("label", { class: "f", for: "imp" }, "Texte de sauvegarde", imp),
+    el("label", { class: "f", for: "impFile" }, "ou un fichier .json", file),
+    el("div", { class: "actions" }, el("button", { class: "btn main", type: "button", text: "Importer et fusionner", onclick: async (e) => {
+      let arr; try { arr = JSON.parse(imp.value); if (!Array.isArray(arr)) throw 0; } catch { status.textContent = "Ce texte n'est pas une sauvegarde valide."; return; }
+      e.target.disabled = true; let n = 0;
+      for (const raw of arr.slice(0, 2000)) { if (!raw || raw.lat == null || raw.lng == null) continue; const p = sanitize({ ...raw, id: raw.id || newId() }); if (await savePlace(p)) n++; status.textContent = `${n} lieu(x) importé(s)…`; }
+      status.textContent = `${n} lieu(x) importé(s).`; e.target.disabled = false;
+    } })),
+    status
+  ]);
+};
+
+// ---------------------------------------------------------------- go
+loadBase().catch((e) => { $("loading").textContent = "La carte n'a pas pu se charger. Recharge la page."; console.error(e); });
+initStorage();
+</script>
+</body>
+</html>
